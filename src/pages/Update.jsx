@@ -1,4 +1,3 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import API from '../API'
 import { useState, useEffect } from 'react'
@@ -17,20 +16,25 @@ function Update() {
 
 
 
-    const fetchData = async () => {
-        try {
-            const res = await API.get(`/auth/getuser/${id}`)
-            setform({
-                name: res.data.name || "",
-                email: res.data.email || "",
-                message: res.data.message || ""
-            })
-        } catch (error) {
-            console.error("Error fetching user for update:", error)
-        }
-    }
     useEffect(() => {
-        fetchData()
+        let cancelled = false
+
+        API.get(`/auth/getuser/${id}`)
+            .then((res) => {
+                if (cancelled) return
+                setform({
+                    name: res.data.name || "",
+                    email: res.data.email || "",
+                    message: res.data.message || ""
+                })
+            })
+            .catch((error) => {
+                console.error("Error fetching user for update:", error)
+            })
+
+        return () => {
+            cancelled = true
+        }
     }, [id])
     const handlechange = (e) => {
         const { name, value } = e.target

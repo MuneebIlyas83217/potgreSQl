@@ -1,4 +1,3 @@
-import React from 'react'
 import API from '../API'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -35,7 +34,7 @@ function Form() {
         } catch (error) {
             console.error("Registration error:", error)
             const detail = error.response?.data?.error 
-                || (error.code === "ERR_NETWORK" ? "Cannot connect to server. Is backend running on port 3000?" : error.message)
+                || (error.code === "ERR_NETWORK" ? "Cannot reach the API server. Check your connection and the VITE_API_URL setting." : error.message)
                 || "Failed to register"
             alert(`Failed to register: ${detail}`)
         }

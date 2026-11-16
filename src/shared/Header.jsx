@@ -1,6 +1,17 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import letterImg from '../assets/letter.png'
 import { Link } from 'react-router-dom'
+
+const ChevronIcon = ({ className = '' }) => (
+    <span className={`w-[11px] h-[6px] inline-flex items-center justify-center transition-transform duration-300 ${className}`}>
+        <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M10.2719 1.18894L5.62672 5.84792C5.57142 5.90322 5.51151 5.94248 5.447 5.96571C5.38248 5.98893 5.31336 6.00036 5.23962 5.99999C5.16589 5.99999 5.09677 5.98838 5.03225 5.96515C4.96774 5.94193 4.90783 5.90285 4.85253 5.84792L0.193548 1.18894C0.064516 1.05991 0 0.898616 0 0.705068C0 0.511519 0.0691243 0.345622 0.207373 0.207373C0.345622 0.0691242 0.506912 0 0.691243 0C0.875575 0 1.03686 0.0691242 1.17511 0.207373L5.23962 4.27188L9.30413 0.207373C9.43317 0.0783405 9.59224 0.0138245 9.78137 0.0138245C9.97049 0.0138245 10.134 0.0829487 10.2719 0.221198C10.4101 0.359446 10.4792 0.520736 10.4792 0.705068C10.4792 0.8894 10.4101 1.05069 10.2719 1.18894Z"
+                fill="currentColor"
+            />
+        </svg>
+    </span>
+)
 
 function Header() {
     const [isOpen, setIsOpen] = useState(false)
@@ -42,17 +53,6 @@ function Header() {
             { name: 'Client Reviews & Case Studies', href: '#' },
         ],
     }
-
-    const ChevronIcon = ({ className = '' }) => (
-        <span className={`w-[11px] h-[6px] inline-flex items-center justify-center transition-transform duration-300 ${className}`}>
-            <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M10.2719 1.18894L5.62672 5.84792C5.57142 5.90322 5.51151 5.94248 5.447 5.96571C5.38248 5.98893 5.31336 6.00036 5.23962 5.99999C5.16589 5.99999 5.09677 5.98838 5.03225 5.96515C4.96774 5.94193 4.90783 5.90285 4.85253 5.84792L0.193548 1.18894C0.064516 1.05991 0 0.898616 0 0.705068C0 0.511519 0.0691243 0.345622 0.207373 0.207373C0.345622 0.0691242 0.506912 0 0.691243 0C0.875575 0 1.03686 0.0691242 1.17511 0.207373L5.23962 4.27188L9.30413 0.207373C9.43317 0.0783405 9.59224 0.0138245 9.78137 0.0138245C9.97049 0.0138245 10.134 0.0829487 10.2719 0.221198C10.4101 0.359446 10.4792 0.520736 10.4792 0.705068C10.4792 0.8894 10.4101 1.05069 10.2719 1.18894Z"
-                    fill="currentColor"
-                />
-            </svg>
-        </span>
-    )
 
     return (
         <header className="w-full bg-white relative z-50 shadow-sm border-b border-[#E8F3F8]">

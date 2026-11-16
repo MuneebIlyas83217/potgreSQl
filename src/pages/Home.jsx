@@ -1,4 +1,3 @@
-import React from 'react'
 import Firstpage from '../components/home/Firstpage'
 import SecondPage from '../components/home/SecondPage'
 import Thirdpage from '../components/home/Thirdpage'

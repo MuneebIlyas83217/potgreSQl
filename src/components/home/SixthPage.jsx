@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import GetUsers from '../../pages/GetUsers'
 
 function SixthPage() {

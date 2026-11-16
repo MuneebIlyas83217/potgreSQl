@@ -1,4 +1,3 @@
-import React from 'react'
 import pic from '../../assets/pic3.png'
 import pic1 from '../../assets/1.png'
 import pic2 from '../../assets/2.png'

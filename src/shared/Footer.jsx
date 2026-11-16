@@ -1,4 +1,3 @@
-import React from 'react'
 import letter from '../assets/lettercraft2.png'
 
 function Footer() {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import nus from '../../assets/nus.png'
 import philips from '../../assets/philips.png'

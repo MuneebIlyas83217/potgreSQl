@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import letterImg from '../../assets/pic.png'
 import Img1 from '../../assets/brands/philips.png'
 import Img2 from '../../assets/brands/peoples-association.png'
@@ -132,8 +132,8 @@ function Firstpage() {
 
                 <h1 className='text-[26px] sm:text-[35px] font-bold font-DMSans text-[#3C3B3B] mt-5 text-center px-4' >BRANDS THAT <span className='text-[#0189CF]' > TRUST US</span></h1>
                 <div className='flex gap-8 lg:gap-10 w-full h-[190px] justify-start lg:justify-center items-center px-6 overflow-x-auto'>
-                    {imgData.map((item, index) => (
-                        <img src={item.img} alt="Philips" className="w-[175px] h-[75px] object-contain flex-shrink-0" />
+                    {imgData.map((item) => (
+                        <img key={item.img} src={item.img} alt="Philips" className="w-[175px] h-[75px] object-contain flex-shrink-0" />
                     ))}
                 </div>
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import pic12 from '../../assets/GET.png'
 import pic from '../../assets/clock.png'
 import pic1 from '../../assets/badge.png'
@@ -46,7 +45,7 @@ function Lastpage() {
         } catch (error) {
             console.error("Submission error:", error)
             const detail = error.response?.data?.error 
-                || (error.code === "ERR_NETWORK" ? "Cannot connect to server. Is the backend running on port 3000?" : error.message)
+                || (error.code === "ERR_NETWORK" ? "Cannot reach the API server. Check your connection and the VITE_API_URL setting." : error.message)
                 || "Failed to submit form"
             alert(`Failed to submit form: ${detail}`)
         }
