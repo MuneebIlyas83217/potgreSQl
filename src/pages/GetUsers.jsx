@@ -1,7 +1,6 @@
 import React from 'react'
 import API from '../API'
 import { useState } from 'react'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -9,6 +8,7 @@ function GetUsers() {
     const navigate = useNavigate()
     const [showusers, setShowusers] = useState(false)
     const [users, setusers] = useState([])
+    const [error, setError] = useState("")
 
     const handleView = async () => {
         if (!showusers) {
@@ -24,20 +24,23 @@ function GetUsers() {
             alert("User deleted successfully")
         } catch (error) {
             console.error("Error deleting user:", error)
+            const detail = error.response?.data?.error || error.message || "Failed to delete user"
+            setError(detail)
+            alert(`Failed to delete user: ${detail}`)
         }
     }
 
     const fetchUser = async () => {
         try {
-            const user = await API.get("auth/get-user")
-            setusers(user.data)
+            const user = await API.get("/auth/get-user")
+            setusers(Array.isArray(user.data) ? user.data : [])
+            setError("")
         } catch (error) {
             console.error("Error fetching users:", error)
+            setusers([])
+            setError(error.response?.data?.error || error.message || "Failed to load users")
         }
     }
-
-    useEffect(() => {
-    }, [])
 
     return (
         <div className='flex flex-col items-center justify-center p-6 w-full min-h-[70vh] bg-gray-50/50'>
@@ -49,6 +52,10 @@ function GetUsers() {
                     {showusers ? "Hide Users" : "Show Users"}
                 </button>
             </div>
+
+            {error && (
+                <p className="mb-4 text-sm text-red-600">{error}</p>
+            )}
 
             {showusers && (
                 <div className='w-full max-w-5xl overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg'>
@@ -65,7 +72,7 @@ function GetUsers() {
                             <tbody className='divide-y divide-gray-100'>
                                 {users && users.length > 0 ? (
                                     users.map((user) => (
-                                        <tr key={user._id} className='hover:bg-sky-50/40 transition-colors duration-150'>
+                                        <tr key={user.id || user._id} className='hover:bg-sky-50/40 transition-colors duration-150'>
                                             <td className='py-4 px-6 text-base font-medium text-gray-800 whitespace-nowrap'>{user.name}</td>
                                             <td className='py-4 px-6 text-base text-gray-600 whitespace-nowrap'>{user.email}</td>
                                             <td className='py-4 px-6 text-base text-gray-600 max-w-xs break-words'>{user.message || "-"}</td>
@@ -73,13 +80,13 @@ function GetUsers() {
                                                 <div className='flex items-center justify-center gap-3'>
                                                     <button
                                                         className='px-3.5 py-1.5 text-sm font-medium text-[#0189CF] border border-[#0189CF] rounded-lg hover:bg-[#0189CF] hover:text-white transition-all duration-150 cursor-pointer active:scale-95'
-                                                        onClick={() => navigate(`/update/${user._id}`)}
+                                                        onClick={() => navigate(`/update/${user.id || user._id}`)}
                                                     >
                                                         Update
                                                     </button>
                                                     <button
                                                         className='px-3.5 py-1.5 text-sm font-medium text-red-600 border border-red-300 rounded-lg hover:bg-red-600 hover:text-white transition-all duration-150 cursor-pointer active:scale-95'
-                                                        onClick={() => handleDeletion(user._id)}
+                                                        onClick={() => handleDeletion(user.id || user._id)}
                                                     >
                                                         Delete
                                                     </button>

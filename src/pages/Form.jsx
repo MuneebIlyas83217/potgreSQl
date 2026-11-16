@@ -23,7 +23,7 @@ function Form() {
     const handlesubmit = async (e) => {
         e.preventDefault()
         try {
-            const res = await API.post("", form)
+            const res = await API.post("/", form)
             console.log("Registered:", res.data)
             alert("User created successfully")
             setform({
@@ -34,7 +34,10 @@ function Form() {
             navigate("/")
         } catch (error) {
             console.error("Registration error:", error)
-            alert("Failed to register")
+            const detail = error.response?.data?.error 
+                || (error.code === "ERR_NETWORK" ? "Cannot connect to server. Is backend running on port 3000?" : error.message)
+                || "Failed to register"
+            alert(`Failed to register: ${detail}`)
         }
     }
 

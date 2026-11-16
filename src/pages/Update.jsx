@@ -18,8 +18,16 @@ function Update() {
 
 
     const fetchData = async () => {
-        const res = await API.get(`/auth/getuser/${id}`)
-        setform(res.data)
+        try {
+            const res = await API.get(`/auth/getuser/${id}`)
+            setform({
+                name: res.data.name || "",
+                email: res.data.email || "",
+                message: res.data.message || ""
+            })
+        } catch (error) {
+            console.error("Error fetching user for update:", error)
+        }
     }
     useEffect(() => {
         fetchData()
@@ -40,10 +48,11 @@ function Update() {
             console.log("Updated:", res.data)
             alert("User updated successfully")
 
-            navigate("/")
+            navigate("/get")
         } catch (error) {
-            console.error("Registration error:", error)
-            alert("Failed to update")
+            console.error("Update error:", error)
+            const detail = error.response?.data?.error || error.message || "Failed to update"
+            alert(`Failed to update: ${detail}`)
         }
     }
 
@@ -76,12 +85,11 @@ function Update() {
                 <input
                     id="message"
                     name="message"
-                    value={form.message}
+                    value={form.message || ""}
                     onChange={handlechange}
                     className='p-2 border rounded-xl'
                     type="text"
                     placeholder='Message'
-                    required
                 />
                 <button type='submit' className='p-2 border rounded-xl bg-[#0189CF] text-white cursor-pointer'> Update</button>
 

@@ -5,7 +5,6 @@ import pic1 from '../../assets/badge.png'
 import pic2 from '../../assets/star.png'
 import { useState } from 'react'
 import API from '../../API'
-import GetUsers from '../../pages/GetUsers'
 
 function Lastpage() {
     const [form, setForm] = useState({
@@ -32,7 +31,7 @@ function Lastpage() {
         try {
             const res = await API.post('/auth/register', form)
             console.log(res.data)
-            alert("Form submitted successfully", res.data.message)
+            alert(res.data?.message || "Form submitted successfully!")
             setForm({
                 name: "",
                 email: "",
@@ -46,7 +45,10 @@ function Lastpage() {
             })
         } catch (error) {
             console.error("Submission error:", error)
-            alert("Failed to submit form")
+            const detail = error.response?.data?.error 
+                || (error.code === "ERR_NETWORK" ? "Cannot connect to server. Is the backend running on port 3000?" : error.message)
+                || "Failed to submit form"
+            alert(`Failed to submit form: ${detail}`)
         }
     }
     return (
@@ -64,9 +66,9 @@ function Lastpage() {
                 </div>
             </div>
             <div className='flex-[1] flex flex-col justify-start items-center w-full'>
-                <div className='flex justify-center items-start border mt-6 shadow-lg rounded-xl bg-white w-[360px] h-[540px] max-w-full'>
+                <div className='flex justify-center items-start border mt-6 shadow-lg rounded-xl bg-white w-[360px] max-w-full py-8'>
 
-                    <form onSubmit={handleSubmit} className="w-[330px] max-w-full h-[490px] flex flex-col gap-3 mt-8 text-DMSans">
+                    <form onSubmit={handleSubmit} className="w-[330px] max-w-full flex flex-col gap-3 text-DMSans">
                         <h1 className='text-[25px] text-start font-bold font-DMSans text-[#000000]'>Get a Quote in 30 mins </h1>
                         <input
                             id="name"
@@ -75,6 +77,7 @@ function Lastpage() {
                             value={form.name}
                             onChange={handleChange}
                             placeholder="Name"
+                            required
                             className="w-full h-[40px] px-2 text-[13px] rounded-md border border-gray-300 outline-none focus:border-[#0189CF]"
                         />
 
@@ -86,6 +89,7 @@ function Lastpage() {
                             onChange={handleChange}
                             type="email"
                             placeholder="E- mail"
+                            required
                             className="w-full h-[40px] px-2 text-[13px] rounded-md border border-gray-300 outline-none focus:border-[#0189CF]"
                         />
 

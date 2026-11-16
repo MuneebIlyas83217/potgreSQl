@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import letterImg from '../assets/letter.png'
 import { Link } from 'react-router-dom'
-import Home from '../pages/Home.jsx'
 
 function Header() {
     const [isOpen, setIsOpen] = useState(false)
@@ -59,19 +58,19 @@ function Header() {
         <header className="w-full bg-white relative z-50 shadow-sm border-b border-[#E8F3F8]">
             <div className="flex items-center justify-between w-full h-[80px] lg:h-[111px] px-6 sm:px-10 lg:px-16 xl:px-20">
                 {/* Logo */}
-                <div className='flex items-center justify-center w-[150px] h-[57px] cursor-pointer hover:opacity-90 transition-opacity'>
+                <Link to="/" className='flex items-center justify-center w-[150px] h-[57px] cursor-pointer hover:opacity-90 transition-opacity'>
                     <img src={letterImg} alt="letter" className="w-full h-full object-contain" />
-                </div>
+                </Link>
 
                 {/* Desktop Navigation (visible on xl+) */}
                 <nav className="hidden xl:flex items-center justify-center gap-6 2xl:gap-8 h-[46px]">
                   
-                   <Link to= "/"> <a
-                        href="#"
+                    <Link
+                        to="/"
                         className='font-medium font-DMSans text-[18px] 2xl:text-[20px] text-[#697587] hover:text-[#0073ae] transition-colors duration-200'
                     >
                         Home
-                    </a></Link>
+                    </Link>
 
                     {/* Services Dropdown */}
                     <div className="relative group flex items-center h-full">
@@ -211,13 +210,13 @@ function Header() {
             {/* Mobile / Tablet Dropdown Menu (opens vertically) */}
             {isOpen && (
                 <div className="xl:hidden w-full bg-white border-t border-[#E8F3F8] shadow-lg px-6 py-5 flex flex-col gap-4">
-                    <a
-                        href="#"
+                    <Link
+                        to="/"
                         onClick={() => setIsOpen(false)}
                         className='font-medium font-DMSans text-[18px] text-[#697587] hover:text-[#0073ae] transition-colors py-1'
                     >
                         Home
-                    </a>
+                    </Link>
 
                     {/* Services Mobile Accordion */}
                     <div className="flex flex-col border-b border-[#F0F4F8] pb-3">
